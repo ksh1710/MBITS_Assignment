@@ -45,10 +45,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.ColorFilter
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -56,6 +54,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.mbits_assignment.models.Data
+import com.example.mbits_assignment.DataEvent
+import com.example.mbits_assignment.DataState
 import com.example.mbits_assignment.R
 import com.example.mbits_assignment.ui.theme.clr1
 import com.example.mbits_assignment.ui.theme.clr2
@@ -65,14 +66,15 @@ import com.example.mbits_assignment.ui.theme.clr6
 import com.example.mbits_assignment.ui.theme.clr7
 import com.example.mbits_assignment.ui.theme.clr8
 import com.example.mbits_assignment.ui.theme.clr9
-import dev.chrisbanes.haze.HazeState
-import dev.chrisbanes.haze.haze
+
+//import sampleState
 
 @Composable
-fun MainScreen() {
-    val hazeState = remember {
-        HazeState()
-    }
+fun MainScreen(
+    state: DataState,
+//    onEvent: (DataEvent) -> Unit
+) {
+
 
     Scaffold(topBar = {
 //        TopBar(hazeState)
@@ -99,7 +101,11 @@ fun MainScreen() {
                 Spacer(modifier = Modifier.size(20.dp))
                 BadaCard()
             }
-            BottomSheet(modifier = Modifier, hazeState)
+            BottomSheet(
+                modifier = Modifier,
+//                onEvent,
+                state = state
+            )
         }
     }
 }
@@ -235,7 +241,11 @@ fun TopBar() {
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
-fun BottomSheet(modifier: Modifier, state: HazeState) {
+fun BottomSheet(
+    modifier: Modifier,
+//    onEvent: (DataEvent) -> Unit,
+    state: DataState
+) {
 
     val sheetState = rememberModalBottomSheetState()
     var showBottomSheet by remember {
@@ -270,13 +280,16 @@ fun BottomSheet(modifier: Modifier, state: HazeState) {
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalArrangement = Arrangement.spacedBy(10.dp)
             ) {
-                DataCard()
-                DataCard()
-                DataCard()
-                DataCard()
-                DataCard()
+                state.data.forEach {
+                    DataCard(
+                        state = state,
+                        item = it
+                    )
+                }
             }
-            BottomCard()
+            BottomCard(
+//                onEvent = onEvent
+            )
             Spacer(Modifier.size(5.dp))
         }
     }
@@ -312,7 +325,10 @@ fun CircleCard(icon: Painter?, text: String) {
 }
 
 @Composable
-fun DataCard() {
+fun DataCard(
+    state: DataState,
+    item: Data,
+) {
     Box(
         modifier = Modifier
             .width(181.dp)
@@ -334,9 +350,11 @@ fun DataCard() {
             )
             Spacer(modifier = Modifier.size(10.dp))
             Column(modifier = Modifier.fillMaxHeight(), verticalArrangement = Arrangement.Top) {
-                Text(text = "dummy")
+                Text(text = item.ttl)
+//                Text(text = text[index])
                 Spacer(modifier = Modifier.size(5.dp))
-                Text(text = "sub Dummy", fontWeight = FontWeight.Bold)
+//                Text(text = "dummy desc", fontWeight = FontWeight.Bold)
+                Text(text = item.value_ttl, fontWeight = FontWeight.Bold)
             }
         }
     }
@@ -344,7 +362,11 @@ fun DataCard() {
 
 
 @Composable
-fun BottomCard() {
+fun BottomCard(
+//    state: NoteState,
+//    onEvent: (DataEvent) -> Unit
+
+) {
     var checked by remember { mutableStateOf(true) }
 
 
@@ -413,7 +435,10 @@ fun BottomCard() {
             modifier = Modifier
                 .weight(1f)
                 .fillMaxSize(),
-            onClick = { /*TODO*/ },
+            onClick = {
+
+
+            },
             colors = ButtonDefaults.buttonColors(
                 containerColor = Color(
                     0xFF43A047
@@ -428,7 +453,12 @@ fun BottomCard() {
             modifier = Modifier
                 .weight(1f)
                 .fillMaxSize(),
-            onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(
+            onClick = {
+//                onEvent(
+//                    DataEvent
+//                        .SaveNote(null, null)
+//                )
+            }, colors = ButtonDefaults.buttonColors(
                 containerColor = Color(
                     0xFF0277BD
                 )

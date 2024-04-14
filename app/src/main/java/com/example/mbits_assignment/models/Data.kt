@@ -1,11 +1,13 @@
-package com.example.example
+package com.example.mbits_assignment.models
 
-import com.google.gson.annotations.SerializedName
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 
-
+@Entity
 data class Data(
+    val ttl: String,
+    val value_ttl: String,
 
-    @SerializedName("toolData") var toolData: ToolData? = ToolData(),
-    @SerializedName("progressData") var progressData: ProgressData? = ProgressData()
-
+    @PrimaryKey(autoGenerate = true)
+    val id: Int = 0
 )
