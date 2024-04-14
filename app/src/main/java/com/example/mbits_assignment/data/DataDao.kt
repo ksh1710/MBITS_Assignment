@@ -10,7 +10,7 @@ import com.example.mbits_assignment.models.Data
 interface DataDao {
 
     @Upsert
-    suspend fun upsertNote(data: Data)
+    suspend fun upsertData(data: Data)
 
     @Query("SELECT * FROM data")
     fun getData(): List<Data>

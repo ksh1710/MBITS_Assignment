@@ -46,11 +46,11 @@ class DataViewModel(
         viewModelScope.launch {
             dao.deleteAllData()
             withContext(Dispatchers.IO) {
-                dao.upsertNote(note1)
-                dao.upsertNote(note2)
-                dao.upsertNote(note3)
-                dao.upsertNote(note4)
-                dao.upsertNote(note5)
+                dao.upsertData(note1)
+                dao.upsertData(note2)
+                dao.upsertData(note3)
+                dao.upsertData(note4)
+                dao.upsertData(note5)
 
                 val data = dao.getData()
                 _state.value = _state.value.copy(data = data)

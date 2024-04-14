@@ -23,19 +23,7 @@ import com.example.mbits_assignment.Screen.MainScreen
 //import com.example.mbits_assignment.models.dummy
 import com.example.mbits_assignment.ui.theme.MBITS_AssignmentTheme
 
-//import io.ktor.client.HttpClient
-//import io.ktor.client.engine.android.Android
-//import io.ktor.client.features.json.JsonFeature
-//import io.ktor.client.features.json.serializer.KotlinxSerializer
-//import io.ktor.client.request.get
-//import dagger.hilt.android.AndroidEntryPoint
-//import okhttp3.OkHttp
-//import sampleState
 
-//import javax.inject.Inject
-
-
-//@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
 
     private val database by lazy {
